@@ -1,0 +1,1246 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夜色网_光影社区与原创影像平台 - 让每一帧夜色都有回响</title>
+<meta name="description" content="夜色网是一家专注夜间影像创作与分享的视频品牌平台，汇聚城市夜景、星空摄影、光影短片与创作者的社区活力，用镜头记录属于夜色的故事。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#0a0b12;
+--bg2:#10121c;
+--panel:#141728;
+--panel2:#1b1f33;
+--line:rgba(255,255,255,.08);
+--line2:rgba(255,255,255,.14);
+--txt:#e8eaf2;
+--muted:#9aa0b8;
+--muted2:#6c7290;
+--accent:#7c5cff;
+--accent2:#23d5ab;
+--accent3:#ff6b9d;
+--glow:rgba(124,92,255,.35);
+--r:16px;
+}
+html{scroll-behavior:smooth}
+body{
+background:var(--bg);
+color:var(--txt);
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+line-height:1.7;
+overflow-x:hidden;
+-webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+ul{list-style:none}
+::selection{background:var(--accent);color:#fff}
+
+/* ---------- 背景氛围 ---------- */
+.bg-fx{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.35}
+.orb.a{width:520px;height:520px;background:#3a2a9e;top:-180px;left:-120px}
+.orb.b{width:460px;height:460px;background:#0f6b5c;top:30%;right:-160px;opacity:.28}
+.orb.c{width:400px;height:400px;background:#7a2350;bottom:-140px;left:30%;opacity:.22}
+.grid-fx{position:fixed;inset:0;z-index:-1;pointer-events:none;
+background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+background-size:64px 64px;
+mask-image:radial-gradient(circle at 50% 0%,#000 0%,transparent 78%);
+-webkit-mask-image:radial-gradient(circle at 50% 0%,#000 0%,transparent 78%);
+}
+
+/* ---------- 通用容器 ---------- */
+.wrap{width:100%;max-width:1200px;margin:0 auto;padding:0 24px}
+.section{padding:96px 0;position:relative}
+.section-head{max-width:720px;margin-bottom:56px}
+.eyebrow{
+display:inline-flex;align-items:center;gap:8px;
+font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;
+color:var(--accent2);font-weight:600;margin-bottom:18px;
+}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--accent2);display:inline-block}
+h2.title{font-size:clamp(28px,3.4vw,42px);line-height:1.25;font-weight:800;letter-spacing:-.5px}
+h2.title em{font-style:normal;background:linear-gradient(100deg,var(--accent),var(--accent3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--muted);font-size:16.5px;margin-top:16px;max-width:640px}
+
+/* ---------- 顶部导航 ---------- */
+header{
+position:sticky;top:0;z-index:100;
+backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+background:rgba(10,11,18,.72);
+border-bottom:1px solid var(--line);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:19px;letter-spacing:.5px}
+.logo-mark{width:34px;height:34px;flex:0 0 auto;position:relative;border-radius:10px;
+background:linear-gradient(135deg,var(--accent),#3a2a9e);display:grid;place-items:center;box-shadow:0 8px 26px var(--glow)}
+.logo-mark svg{width:19px;height:19px}
+.logo small{display:block;font-size:10px;letter-spacing:.28em;color:var(--muted2);font-weight:500;letter-spacing:.24em}
+.nav-links{display:flex;gap:34px;font-size:14.5px;color:var(--muted)}
+.nav-links a{position:relative;transition:color .25s;padding:6px 0}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1.5px;background:var(--accent2);transition:width .3s}
+.nav-links a:hover{color:var(--txt)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{display:flex;align-items:center;gap:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;font-weight:600;font-size:14.5px;padding:11px 22px;border:1px solid transparent;cursor:pointer;transition:transform .22s,box-shadow .25s,background .25s,border-color .25s;white-space:nowrap}
+.btn-primary{background:linear-gradient(100deg,var(--accent),#5b3fe0);color:#fff;box-shadow:0 10px 30px var(--glow)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px var(--glow)}
+.btn-ghost{background:transparent;border-color:var(--line2);color:var(--txt)}
+.btn-ghost:hover{background:rgba(255,255,255,.06);transform:translateY(-2px)}
+.menu-toggle{display:none;background:none;border:1px solid var(--line2);color:var(--txt);width:42px;height:42px;border-radius:11px;cursor:pointer}
+.menu-toggle span{display:block;width:18px;height:1.6px;background:var(--txt);margin:4px auto;transition:.3s}
+
+/* ---------- Hero ---------- */
+.hero{padding:88px 0 72px;position:relative;overflow:hidden}
+.hero-inner{display:grid;grid-template-columns:1.06fr .94fr;gap:60px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:9px;font-size:13px;color:var(--muted);border:1px solid var(--line2);background:rgba(255,255,255,.03);padding:7px 15px;border-radius:999px;margin-bottom:26px}
+.dot-live{width:7px;height:7px;border-radius:50%;background:var(--accent2);box-shadow:0 0 0 0 rgba(35,213,171,.6);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(35,213,171,.55)}70%{box-shadow:0 0 0 9px rgba(35,213,171,0)}100%{box-shadow:0 0 0 0 rgba(35,213,171,0)}}
+h1{font-size:clamp(44px,6.4vw,82px);line-height:1.02;font-weight:900;letter-spacing:-2px;margin-bottom:8px;
+background:linear-gradient(170deg,#fff 20%,#b9bede 70%,#7c5cff 130%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-tagline{font-size:clamp(17px,1.9vw,21px);color:var(--txt);font-weight:600;margin:18px 0 14px;letter-spacing:.3px}
+.hero-tagline span{color:var(--accent2)}
+.hero-desc{color:var(--muted);font-size:16px;max-width:520px;margin-bottom:34px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:44px}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:520px;border-top:1px solid var(--line);padding-top:26px}
+.stat b{display:block;font-size:clamp(22px,2.6vw,30px);font-weight:800;letter-spacing:-.5px;
+background:linear-gradient(100deg,#fff,#b3a9ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat span{font-size:12.5px;color:var(--muted2);letter-spacing:.06em}
+
+/* Hero 视觉：视频卡片墙 */
+.hero-visual{position:relative;perspective:1200px}
+.player{
+border-radius:22px;overflow:hidden;position:relative;
+background:linear-gradient(160deg,#1a1e33,#0d0f1a);
+border:1px solid var(--line2);
+box-shadow:0 40px 100px -30px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.02) inset;
+aspect-ratio:16/10;
+}
+.player svg{width:100%;height:100%;display:block}
+.player-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,11,18,.1) 0%,transparent 40%,rgba(10,11,18,.85) 100%);pointer-events:none}
+.player-meta{position:absolute;left:18px;right:18px;bottom:16px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.player-meta .p-info{font-size:13px;color:#dfe3f5}
+.player-meta .p-info b{display:block;font-size:14.5px;font-weight:700;margin-bottom:2px}
+.player-meta .p-info span{color:var(--muted);font-size:12px}
+.play-btn{
+position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+width:64px;height:64px;border-radius:50%;display:grid;place-items:center;
+background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);
+backdrop-filter:blur(8px);cursor:pointer;transition:.3s;
+}
+.play-btn:hover{transform:translate(-50%,-50%) scale(1.08);background:var(--accent);border-color:var(--accent);box-shadow:0 0 40px var(--glow)}
+.play-btn svg{width:22px;height:22px;margin-left:3px}
+.timecode{font-variant-numeric:tabular-nums;font-size:12px;color:#cfd3ea;background:rgba(0,0,0,.42);padding:3px 9px;border-radius:6px;border:1px solid var(--line)}
+.progress{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.1)}
+.progress i{display:block;height:100%;width:34%;background:linear-gradient(90deg,var(--accent),var(--accent3))}
+.float-card{
+position:absolute;background:var(--panel);border:1px solid var(--line2);border-radius:14px;
+padding:11px 15px;font-size:12.5px;color:var(--muted);box-shadow:0 20px 50px -18px rgba(0,0,0,.9);
+display:flex;align-items:center;gap:9px;
+animation:floaty 6s ease-in-out infinite;
+}
+.float-card b{color:var(--txt);font-weight:700;font-size:13px}
+.float-card.fc1{top:-16px;right:-6px;animation-delay:0s}
+.float-card.fc2{bottom:42px;left:-30px;animation-delay:1.4s}
+.float-card .mini{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:rgba(124,92,255,.18);color:#b9a9ff}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+/* ---------- 滚动条带 ---------- */
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(20,23,40,.45);overflow:hidden;padding:16px 0}
+.marquee-track{display:flex;gap:52px;width:max-content;animation:scrollx 34s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-item{display:flex;align-items:center;gap:12px;color:var(--muted2);font-size:14px;white-space:nowrap;letter-spacing:.04em}
+.marquee-item svg{width:15px;height:15px;color:var(--accent2);opacity:.8}
+@keyframes scrollx{to{transform:translateX(-50%)}}
+
+/* ---------- 栏目卡片 ---------- */
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{
+background:linear-gradient(170deg,var(--panel),var(--bg2));
+border:1px solid var(--line);border-radius:var(--r);padding:30px 26px;
+position:relative;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s;
+}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--line2),transparent)}
+.card:hover{transform:translateY(-6px);border-color:rgba(124,92,255,.45);box-shadow:0 24px 60px -26px var(--glow)}
+.card .ico{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;margin-bottom:20px;
+background:rgba(124,92,255,.14);color:#b9a9ff;border:1px solid rgba(124,92,255,.22)}
+.card:nth-child(2) .ico{background:rgba(35,213,171,.12);color:#7eecd1;border-color:rgba(35,213,171,.22)}
+.card:nth-child(3) .ico{background:rgba(255,107,157,.12);color:#ffa6c1;border-color:rgba(255,107,157,.22)}
+.card .ico svg{width:22px;height:22px}
+.card h3{font-size:19px;font-weight:700;margin-bottom:10px;letter-spacing:-.2px}
+.card p{color:var(--muted);font-size:14.5px}
+.card .more{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-size:13.5px;color:var(--accent2);font-weight:600}
+.card .more svg{width:13px;height:13px;transition:transform .3s}
+.card:hover .more svg{transform:translateX(4px)}
+
+/* ---------- 作品 / 视频网格 ---------- */
+.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.work{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:.32s;position:relative}
+.work:hover{border-color:rgba(124,92,255,.42);transform:translateY(-6px);box-shadow:0 28px 70px -30px rgba(0,0,0,.9)}
+.work .thumb{position:relative;aspect-ratio:16/10;overflow:hidden;background:#0c0e18}
+.work .thumb svg{width:100%;height:100%;transition:transform .55s ease}
+.work:hover .thumb svg{transform:scale(1.04)}
+.work .tag{position:absolute;top:12px;left:12px;font-size:11.5px;padding:4px 10px;border-radius:999px;background:rgba(10,11,18,.7);border:1px solid var(--line2);color:#d5d9ef;backdrop-filter:blur(6px)}
+.work .dur{position:absolute;bottom:12px;right:12px;font-size:11.5px;padding:3px 8px;border-radius:6px;background:rgba(10,11,18,.72);border:1px solid var(--line);color:#cfd3ea;font-variant-numeric:tabular-nums}
+.work .body{padding:18px 18px 20px}
+.work h4{font-size:16px;font-weight:700;margin-bottom:7px;letter-spacing:-.1px}
+.work .meta{display:flex;align-items:center;justify-content:space-between;font-size:12.5px;color:var(--muted2)}
+.work .author{display:flex;align-items:center;gap:7px}
+.avatar{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--accent),#3a2a9e)}
+.work:nth-child(2) .avatar{background:linear-gradient(135deg,#0f8a6f,#23d5ab)}
+.work:nth-child(3) .avatar{background:linear-gradient(135deg,#a83270,#ff6b9d)}
+.work:nth-child(4) .avatar{background:linear-gradient(135deg,#7a5a12,#e0a92a)}
+.work:nth-child(5) .avatar{background:linear-gradient(135deg,#215a9e,#4bb1ff)}
+.work:nth-child(6) .avatar{background:linear-gradient(135deg,#6b2ea8,#b06bff)}
+.views{display:inline-flex;align-items:center;gap:5px}
+.views svg{width:12px;height:12px;opacity:.75}
+.center-cta{text-align:center;margin-top:48px}
+
+/* ---------- 创作者 ---------- */
+.creators{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.creator{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px 20px;text-align:center;transition:.3s}
+.creator:hover{transform:translateY(-5px);border-color:rgba(35,213,171,.4);box-shadow:0 22px 60px -30px rgba(35,213,171,.4)}
+.creator .big-avatar{width:70px;height:70px;border-radius:50%;margin:0 auto 16px;display:grid;place-items:center;font-size:24px;font-weight:800;color:#fff;position:relative;
+background:linear-gradient(135deg,var(--accent),#3a2a9e)}
+.creator:nth-child(2) .big-avatar{background:linear-gradient(135deg,#0f8a6f,#23d5ab)}
+.creator:nth-child(3) .big-avatar{background:linear-gradient(135deg,#a83270,#ff6b9d)}
+.creator:nth-child(4) .big-avatar{background:linear-gradient(135deg,#215a9e,#4bb1ff)}
+.creator .big-avatar::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px solid rgba(255,255,255,.1)}
+.creator h4{font-size:16px;font-weight:700;margin-bottom:4px}
+.creator .role{font-size:12.5px;color:var(--accent2);margin-bottom:12px}
+.creator p{font-size:13px;color:var(--muted);min-height:44px}
+.creator .nums{display:flex;justify-content:center;gap:18px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--muted2)}
+.creator .nums b{display:block;color:var(--txt);font-size:14px;font-weight:700}
+
+/* ---------- 时间线 / 纪实 ---------- */
+.timeline{position:relative;padding-left:34px}
+.timeline::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:1px;background:linear-gradient(180deg,var(--accent),rgba(124,92,255,.05))}
+.tl-item{position:relative;padding:0 0 34px 8px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{content:"";position:absolute;left:-30px;top:7px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);box-shadow:0 0 0 4px rgba(124,92,255,.12)}
+.tl-item h4{font-size:16.5px;font-weight:700;margin-bottom:6px}
+.tl-item .when{font-size:12.5px;color:var(--accent2);letter-spacing:.08em;margin-bottom:6px;font-weight:600}
+.tl-item p{color:var(--muted);font-size:14px;max-width:620px}
+
+/* ---------- 数据带 ---------- */
+.metrics{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(20,23,40,.6),rgba(10,11,18,.2))}
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:52px 0}
+.metric{text-align:center;position:relative}
+.metric+.metric::before{content:"";position:absolute;left:-10px;top:12%;height:76%;width:1px;background:var(--line)}
+.metric b{display:block;font-size:clamp(28px,3.6vw,42px);font-weight:900;letter-spacing:-1px;
+background:linear-gradient(100deg,#fff,var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1.1}
+.metric span{font-size:13px;color:var(--muted2);letter-spacing:.06em}
+
+/* ---------- 社区 / 动态 ---------- */
+.community{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:start}
+.post{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:16px;transition:.3s}
+.post:hover{border-color:rgba(255,255,255,.2);background:var(--panel2)}
+.post-head{display:flex;align-items:center;gap:11px;margin-bottom:11px}
+.post-head .avatar{width:32px;height:32px;font-size:12px}
+.post-head .who b{font-size:14px;display:block}
+.post-head .who span{font-size:12px;color:var(--muted2)}
+.post p{font-size:14.5px;color:#c6cade}
+.post .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.post .tags i{font-style:normal;font-size:12px;color:var(--accent2);background:rgba(35,213,171,.08);border:1px solid rgba(35,213,171,.18);padding:3px 10px;border-radius:999px}
+.side-box{background:linear-gradient(170deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:18px;padding:28px}
+.side-box h3{font-size:17px;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:9px}
+.side-box h3 svg{width:17px;height:17px;color:var(--accent3)}
+.hot-list li{display:flex;gap:14px;padding:12px 0;border-bottom:1px dashed var(--line);font-size:14px;color:#c6cade;transition:.25s}
+.hot-list li:last-child{border-bottom:0;padding-bottom:0}
+.hot-list li:hover{color:#fff}
+.hot-list .num{font-size:13px;font-weight:800;color:var(--muted2);min-width:22px;font-variant-numeric:tabular-nums}
+.hot-list li:nth-child(1) .num{color:var(--accent3)}
+.hot-list li:nth-child(2) .num{color:var(--accent)}
+.hot-list li:nth-child(3) .num{color:var(--accent2)}
+
+/* ---------- 订阅 ---------- */
+.subscribe{
+position:relative;border-radius:26px;overflow:hidden;
+border:1px solid rgba(124,92,255,.3);
+background:radial-gradient(120% 130% at 12% 0%,rgba(124,92,255,.28),transparent 55%),radial-gradient(100% 120% at 100% 100%,rgba(35,213,171,.16),transparent 55%),var(--panel);
+padding:62px 54px;
+}
+.subscribe-inner{display:grid;grid-template-columns:1fr .9fr;gap:44px;align-items:center}
+.subscribe h2{font-size:clamp(26px,3.2vw,38px);font-weight:800;letter-spacing:-.6px;line-height:1.25;margin-bottom:14px}
+.subscribe p{color:var(--muted);font-size:15.5px;max-width:460px}
+.sub-form{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.sub-form input{
+flex:1;min-width:200px;background:rgba(10,11,18,.6);border:1px solid var(--line2);
+border-radius:999px;padding:13px 20px;color:var(--txt);font-size:14.5px;outline:none;transition:.25s;
+}
+.sub-form input::placeholder{color:var(--muted2)}
+.sub-form input:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(124,92,255,.14)}
+.sub-note{font-size:12.5px;color:var(--muted2);margin-top:14px}
+.sub-visual{position:relative;display:grid;place-items:center}
+.sub-visual svg{width:100%;max-width:320px;height:auto;filter:drop-shadow(0 20px 40px rgba(0,0,0,.5))}
+
+/* ---------- 页脚 ---------- */
+footer{border-top:1px solid var(--line);padding:64px 0 34px;background:linear-gradient(180deg,transparent,rgba(20,23,40,.4))}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+.foot-brand p{color:var(--muted);font-size:14px;max-width:320px;margin:16px 0 22px}
+.socials{display:flex;gap:10px}
+.socials a{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;border:1px solid var(--line2);color:var(--muted);transition:.25s}
+.socials a:hover{color:#fff;border-color:var(--accent);background:rgba(124,92,255,.16);transform:translateY(-2px)}
+.socials svg{width:16px;height:16px}
+.foot-col h5{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);margin-bottom:18px;font-weight:700}
+.foot-col li{margin-bottom:11px}
+.foot-col a{font-size:14px;color:var(--muted);transition:.22s}
+.foot-col a:hover{color:var(--accent2)}
+.foot-bottom{border-top:1px solid var(--line);padding-top:26px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:12.5px;color:var(--muted2)}
+.foot-bottom .links{display:flex;gap:22px;flex-wrap:wrap}
+
+/* ---------- 动效揭示 ---------- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}
+.reveal.d2{transition-delay:.16s}
+.reveal.d3{transition-delay:.24s}
+.reveal.d4{transition-delay:.32s}
+
+/* ---------- 返回顶部 ---------- */
+.to-top{position:fixed;right:26px;bottom:26px;width:46px;height:46px;border-radius:13px;border:1px solid var(--line2);
+background:rgba(20,23,40,.85);backdrop-filter:blur(12px);color:var(--txt);display:grid;place-items:center;
+cursor:pointer;opacity:0;visibility:hidden;transform:translateY(14px);transition:.3s;z-index:90;
+}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{background:var(--accent);border-color:var(--accent);box-shadow:0 10px 30px var(--glow)}
+.to-top svg{width:18px;height:18px}
+
+/* ---------- 响应式 ---------- */
+@media (max-width:1040px){
+.hero-inner{grid-template-columns:1fr;gap:48px}
+.hero-visual{max-width:560px}
+.feature-grid{grid-template-columns:repeat(2,1fr)}
+.work-grid{grid-template-columns:repeat(2,1fr)}
+.creators{grid-template-columns:repeat(2,1fr)}
+.community{grid-template-columns:1fr}
+.subscribe-inner{grid-template-columns:1fr}
+.sub-visual{display:none}
+.foot-grid{grid-template-columns:1fr 1fr}
+.metrics-grid{grid-template-columns:repeat(2,1fr);gap:34px 20px}
+.metric:nth-child(3)::before,.metric:nth-child(1)::before{display:none}
+}
+@media (max-width:760px){
+.nav-links,.nav-cta .btn-ghost{display:none}
+.menu-toggle{display:block}
+.nav-links.open{display:flex;position:absolute;top:72px;left:0;right:0;flex-direction:column;gap:0;
+background:rgba(10,11,18,.97);border-bottom:1px solid var(--line);padding:12px 24px 20px;backdrop-filter:blur(20px)}
+.nav-links.open a{padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
+.nav-links.open a:last-child{border-bottom:0}
+.section{padding:66px 0}
+.hero{padding:56px 0 48px}
+.feature-grid,.work-grid,.creators{grid-template-columns:1fr}
+.float-card.fc2{left:0;bottom:6px}
+.float-card.fc1{right:0}
+.hero-stats{gap:14px}
+.subscribe{padding:38px 24px}
+.foot-grid{grid-template-columns:1fr}
+.foot-bottom{flex-direction:column}
+.marquee-track{animation-duration:22s}
+}
+@media (prefers-reduced-motion:reduce){
+*{animation:none !important;transition:none !important}
+.reveal{opacity:1;transform:none}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<div class="bg-fx" aria-hidden="true">
+  <div class="orb a"></div>
+  <div class="orb b"></div>
+  <div class="orb c"></div>
+</div>
+<div class="grid-fx" aria-hidden="true"></div>
+
+<!-- ============ 导航 ============ -->
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top">
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 15.5A8.5 8.5 0 0 1 8.5 4a8.5 8.5 0 1 0 11.5 11.5z"/>
+          <circle cx="16.5" cy="7.5" r=".8" fill="#fff" stroke="none"/>
+        </svg>
+      </span>
+      <span>夜色网<small>NIGHTFRAME</small></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">关于夜色</a>
+      <a href="#works">精选作品</a>
+      <a href="#creators">创作者</a>
+      <a href="#story">品牌纪实</a>
+      <a href="#community">社区动态</a>
+      <a href="#join">加入我们</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="#works">观看作品</a>
+      <a class="btn btn-primary" href="#join">发布作品</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="展开菜单"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ Hero ============ -->
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <div class="hero-badge"><span class="dot-live"></span>夜晚正在直播 · 1,284 位创作者在线</div>
+        <h1>夜色网</h1>
+        <div class="hero-tagline">让每一帧<span>夜色</span>，都有回响。</div>
+        <p class="hero-desc">一个为夜间影像而生的视频品牌与创作社区。我们把城市的灯、山野的星、街角的呼吸，收进取景框，做成可以被反复观看的故事。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#works">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            探索精选影像
+          </a>
+          <a class="btn btn-ghost" href="#creators">认识创作者</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><b>12.8K</b><span>原创夜色短片</span></div>
+          <div class="stat"><b>46万+</b><span>月度观看人次</span></div>
+          <div class="stat"><b>320</b><span>签约影像创作者</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="player" id="playerCard">
+          <svg viewBox="0 0 640 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#0b0d1a"/>
+                <stop offset="52%" stop-color="#1a1b3d"/>
+                <stop offset="78%" stop-color="#3b2469"/>
+                <stop offset="100%" stop-color="#141024"/>
+              </linearGradient>
+              <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#cbbcff" stop-opacity=".85"/>
+                <stop offset="55%" stop-color="#7c5cff" stop-opacity=".28"/>
+                <stop offset="100%" stop-color="#7c5cff" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="cityFar" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#2a2a55"/>
+                <stop offset="100%" stop-color="#141530"/>
+              </linearGradient>
+              <linearGradient id="cityNear" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#191a36"/>
+                <stop offset="100%" stop-color="#0b0c18"/>
+              </linearGradient>
+              <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#1d1c47"/>
+                <stop offset="100%" stop-color="#0a0b16"/>
+              </linearGradient>
+              <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#ff6b9d" stop-opacity=".55"/>
+                <stop offset="100%" stop-color="#ff6b9d" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <rect width="640" height="400" fill="url(#sky)"/>
+            <!-- 星星 -->
+            <g fill="#d9d5ff">
+              <circle cx="72" cy="46" r="1.3" opacity=".8"/>
+              <circle cx="130" cy="92" r=".9" opacity=".55"/>
+              <circle cx="196" cy="40" r="1.1" opacity=".7"/>
+              <circle cx="262" cy="78" r=".8" opacity=".5"/>
+              <circle cx="330" cy="34" r="1.2" opacity=".75"/>
+              <circle cx="404" cy="66" r=".9" opacity=".55"/>
+              <circle cx="474" cy="38" r="1.3" opacity=".8"/>
+              <circle cx="540" cy="86" r=".8" opacity=".5"/>
+              <circle cx="596" cy="48" r="1.1" opacity=".7"/>
+              <circle cx="98" cy="128" r=".8" opacity=".45"/>
+              <circle cx="356" cy="112" r=".9" opacity=".5"/>
+              <circle cx="512" cy="120" r=".8" opacity=".45"/>
+            </g>
+            <!-- 月亮 -->
+            <circle cx="486" cy="104" r="86" fill="url(#moonGlow)"/>
+            <circle cx="486" cy="104" r="27" fill="#efeaff"/>
+            <circle cx="476" cy="96" r="5" fill="#d9d1ff" opacity=".7"/>
+            <circle cx="494" cy="112" r="3.4" fill="#d9d1ff" opacity=".55"/>
+            <!-- 远景楼群 -->
+            <g fill="url(#cityFar)" opacity=".9">
+              <rect x="20" y="238" width="42" height="92"/>
+              <rect x="70" y="258" width="30" height="72"/>
+              <rect x="108" y="222" width="36" height="108"/>
+              <rect x="152" y="266" width="26" height="64"/>
+              <rect x="186" y="244" width="44" height="86"/>
+              <rect x="238" y="276" width="22" height="54"/>
+              <rect x="380" y="252" width="34" height="78"/>
+              <rect x="424" y="230" width="42" height="100"/>
+              <rect x="474" y="268" width="28" height="62"/>
+              <rect x="512" y="240" width="38" height="90"/>
+              <rect x="560" y="262" width="30" height="68"/>
+            </g>
+            <!-- 近景楼群 -->
+            <g fill="url(#cityNear)">
+              <rect x="0" y="286" width="58" height="114"/>
+              <rect x="66" y="304" width="38" height="96"/>
+              <rect x="112" y="272" width="50" height="128"/>
+              <rect x="170" y="312" width="34" height="88"/>
+              <rect x="212" y="290" width="56" height="110"/>
+              <rect x="276" y="320" width="30" height="80"/>
+              <rect x="330" y="298" width="46" height="102"/>
+              <rect x="384" y="276" width="52" height="124"/>
+              <rect x="444" y="314" width="34" height="86"/>
+              <rect x="486" y="288" width="58" height="112"/>
+              <rect x="552" y="306" width="42" height="94"/>
+              <rect x="600" y="280" width="40" height="120"/>
+            </g>
+            <!-- 楼体灯光 -->
+            <g fill="#ffd98a" opacity=".85">
+              <rect x="14" y="300" width="4" height="5"/><rect x="26" y="300" width="4" height="5"/><rect x="14" y="318" width="4" height="5"/>
+              <rect x="38" y="336" width="4" height="5"/><rect x="38" y="318" width="4" height="5"/>
+              <rect x="76" y="322" width="4" height="5"/><rect x="88" y="340" width="4" height="5"/>
+              <rect x="124" y="290" width="4" height="5"/><rect x="138" y="308" width="4" height="5"/><rect x="124" y="326" width="4" height="5"/>
+              <rect x="146" y="344" width="4" height="5"/>
+              <rect x="224" y="306" width="4" height="5"/><rect x="240" y="324" width="4" height="5"/><rect x="224" y="342" width="4" height="5"/>
+              <rect x="342" y="316" width="4" height="5"/><rect x="358" y="334" width="4" height="5"/>
+              <rect x="396" y="294" width="4" height="5"/><rect x="412" y="312" width="4" height="5"/><rect x="396" y="330" width="4" height="5"/>
+              <rect x="498" y="306" width="4" height="5"/><rect x="514" y="324" width="4" height="5"/><rect x="498" y="342" width="4" height="5"/>
+              <rect x="528" y="360" width="4" height="5"/>
+              <rect x="566" y="324" width="4" height="5"/><rect x="582" y="342" width="4" height="5"/>
+              <rect x="612" y="298" width="4" height="5"/><rect x="626" y="316" width="4" height="5"/>
+            </g>
+            <g fill="#7be6d0" opacity=".7">
+              <rect x="26" y="354" width="4" height="5"/><rect x="90" y="356" width="4" height="5"/>
+              <rect x="184" y="330" width="4" height="5"/><rect x="252" y="352" width="4" height="5"/>
+              <rect x="372" y="352" width="4" height="5"/><rect x="428" y="330" width="4" height="5"/>
+              <rect x="472" y="354" width="4" height="5"/><rect x="540" y="342" width="4" height="5"/>
+            </g>
+            <!-- 霓虹光束 -->
+            <polygon points="212,290 300,290 240,400 150,400" fill="url(#beam)" opacity=".5"/>
+            <!-- 水面 -->
+            <rect x="0" y="368" width="640" height="32" fill="url(#water)"/>
+            <g stroke="#5d55b8" stroke-width="1" opacity=".35">
+              <line x1="40" y1="378" x2="150" y2="378"/>
+              <line x1="180" y1="386" x2="290" y2="386"/>
+              <line x1="330" y1="376" x2="430" y2="376"/>
+              <line x1="470" y1="388" x2="600" y2="388"/>
+            </g>
+            <g fill="#efeaff" opacity=".5">
+              <rect x="478" y="372" width="16" height="2"/>
+              <rect x="482" y="378" width="8" height="2"/>
+              <rect x="476" y="384" width="20" height="2"/>
+            </g>
+          </svg>
+
+          <div class="player-overlay"></div>
+          <button class="play-btn" id="playBtn" aria-label="播放预告片">
+            <svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <div class="player-meta">
+            <div class="p-info">
+              <b>《城市在午夜之后醒来》</b>
+              <span>夜色网 · 年度概念短片</span>
+            </div>
+            <span class="timecode" id="timecode">02:14 / 04:30</span>
+          </div>
+          <div class="progress"><i id="progressBar"></i></div>
+        </div>
+
+        <div class="float-card fc1">
+          <span class="mini">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17l-6.1 3.4 1.5-6.8L2.2 9l6.9-.7z"/></svg>
+          </span>
+          <div><b>本周编辑精选</b><br>12 部新片上线</div>
+        </div>
+        <div class="float-card fc2">
+          <span class="mini">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
+          </span>
+          <div><b>+1,284 在线</b><br>正在一起看夜色</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 滚动条带 ============ -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marqueeTrack">
+      <span class="marquee-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>城市夜景延时</span>
+      <span class="marquee-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 12h18"/></svg>星空与银河</span>
+      <span class="marquee-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M12 2v20"/></svg>街头纪实</span>
+      <span class="marquee-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg>胶片质感调色</span>
+      <span class="marquee-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.2H22l-6.2 4.5 2.4 7.3L12 16.5 5.8 21l2.4-7.3L2 9.2h7.6z"/></svg>夜景航拍</span>
+      <span class="marquee-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-8M22 20V7"/></svg>创作者访谈</span>
+      <span class="marquee-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>城市夜景延时</span>
+      <span class="marquee-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 12h18"/></svg>星空与银河</span>
+      <span class="marquee-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M12 2v20"/></svg>街头纪实</span>
+      <span class="marquee-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg>胶片质感调色</span>
+      <span class="marquee-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.2H22l-6.2 4.5 2.4 7.3L12 16.5 5.8 21l2.4-7.3L2 9.2h7.6z"/></svg>夜景航拍</span>
+      <span class="marquee-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-8M22 20V7"/></svg>创作者访谈</span>
+    </div>
+  </div>
+
+  <!-- ============ 关于夜色 ============ -->
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">About Nightframe</div>
+        <h2 class="title">我们不追逐光，我们<em>把夜留住</em></h2>
+        <p class="sub">夜色网是一家围绕"夜间影像"建立内容的视频品牌。从城市灯光到荒野星轨，从午夜路边摊到凌晨四点的写字楼，我们相信夜晚拥有白天无法复刻的叙事密度。</p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="card reveal">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4a8.5 8.5 0 1 0 11.5 11.5z"/></svg>
+          </div>
+          <h3>夜色选题库</h3>
+          <p>超过 200 组正在开发的夜景选题，从城市天际线到乡野星空，为创作者提供可直接落地的拍摄脚本与踩点坐标。</p>
+          <span class="more">查看选题地图 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </article>
+
+        <article class="card reveal d1">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3z"/></svg>
+          </div>
+          <h3>品牌短片制作</h3>
+          <p>从概念到成片的一站式团队：策划、分镜、航拍、灯光、调色与混音。已为城市文旅、生活方式与消费品牌交付 180+ 部夜色主题影片。</p>
+          <span class="more">了解合作流程 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </article>
+
+        <article class="card reveal d2">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>创作者共居计划</h3>
+          <p>每季度在不同城市落地"夜色工作站"，提供设备、场地与驻留资源，让分散在各地的夜景创作者真正聚在一起熬夜、拍摄、剪辑。</p>
+          <span class="more">申请驻留名额 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 精选作品 ============ -->
+  <section class="section" id="works" style="padding-top:20px">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Selected Works</div>
+        <h2 class="title">在夜色网的<em>精选放映厅</em></h2>
+        <p class="sub">每周四更新。全部作品由平台创作者上传，经编辑团队二次调色审核后进入放映厅，支持 4K 与 HDR 播放。</p>
+      </div>
+
+      <div class="work-grid">
+
+        <article class="work reveal">
+          <div class="thumb">
+            <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
+              <defs><linearGradient id="w1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d0e1e"/><stop offset="1" stop-color="#2a1b4d"/></linearGradient></defs>
+              <rect width="400" height="250" fill="url(#w1)"/>
+              <circle cx="320" cy="60" r="34" fill="#efeaff" opacity=".92"/>
+              <circle cx="320" cy="60" r="60" fill="#7c5cff" opacity=".16"/>
+              <g fill="#141530">
+                <rect x="0" y="150" width="46" height="100"/><rect x="54" y="172" width="34" height="78"/>
+                <rect x="96" y="132" width="52" height="118"/><rect x="156" y="180" width="30" height="70"/>
+                <rect x="194" y="146" width="58" height="104"/><rect x="260" y="186" width="36" height="64"/>
+                <rect x="304" y="158" width="52" height="92"/><rect x="364" y="176" width="36" height="74"/>
+              </g>
+              <g fill="#ffd98a" opacity=".85">
+                <rect x="12" y="164" width="4" height="5"/><rect x="28" y="182" width="4" height="5"/>
+                <rect x="108" y="150" width="4" height="5"/><rect x="124" y="168" width="4" height="5"/>
+                <rect x="206" y="164" width="4" height="5"/><rect x="232" y="182" width="4" height="5"/>
+                <rect x="318" y="176" width="4" height="5"/><rect x="336" y="194" width="4" height="5"/>
+              </g>
+              <g fill="#7be6d0" opacity=".7"><rect x="70" y="200" width="4" height="5"/><rect x="270" y="208" width="4" height="5"/></g>
+              <rect y="228" width="400" height="22" fill="#0a0b16"/>
+            </svg>
+            <span class="tag">城市夜景</span>
+            <span class="dur">04:30</span>
+          </div>
+          <div class="body">
+            <h4>城市在午夜之后醒来</h4>
+            <div class="meta">
+              <span class="author"><span class="avatar">林</span>林间暗房</span>
+              <span class="views">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                18.4万
+              </span>
+            </div>
+          </div>
+        </article>
+
+        <article class="work reveal d1">
+          <div class="thumb">
+            <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
+              <defs><linearGradient id="w2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#07131a"/><stop offset="1" stop-color="#0d3b3a"/></linearGradient></defs>
+              <rect width="400" height="250" fill="url(#w2)"/>
+              <g fill="#cfe9ff" opacity=".8">
+                <circle cx="40" cy="30" r="1.3"/><circle cx="96" cy="64" r="1"/><circle cx="150" cy="26" r="1.2"/>
+                <circle cx="214" cy="58" r=".9"/><circle cx="272" cy="22" r="1.1"/><circle cx="334" cy="50" r="1.2"/>
+                <circle cx="382" cy="86" r="1"/><circle cx="120" cy="104" r=".9"/><circle cx="250" cy="98" r="1"/>
+              </g>
+              <path d="M0 210 L60 150 L120 196 L180 128 L244 190 L300 140 L360 200 L400 168 L400 250 L0 250 Z" fill="#0a1c22"/>
+              <path d="M0 226 L70 184 L140 220 L210 176 L280 224 L350 190 L400 214 L400 250 L0 250 Z" fill="#071216"/>
+              <ellipse cx="200" cy="120" rx="130" ry="46" fill="#23d5ab" opacity=".1"/>
+              <path d="M120 120 Q200 70 280 120" stroke="#23d5ab" stroke-width="1.6" fill="none" opacity=".55"/>
+            </svg>
+            <span class="tag">星空银河</span>
+            <span class="dur">07:12</span>
+          </div>
+          <div class="body">
+            <h4>在无人区数完了整条银河</h4>
+            <div class="meta">
+              <span class="author"><span class="avatar">星</span>星野慢速</span>
+              <span class="views">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                12.7万
+              </span>
+            </div>
+          </div>
+        </article>
+
+        <article class="work reveal d2">
+          <div class="thumb">
+            <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
+              <defs><linearGradient id="w3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a0f22"/><stop offset="1" stop-color="#0d0a18"/></linearGradient></defs>
+              <rect width="400" height="250" fill="url(#w3)"/>
+              <rect x="0" y="176" width="400" height="74" fill="#120b18"/>
+              <g fill="#ff6b9d" opacity=".7">
+                <rect x="40" y="96" width="52" height="10" rx="5"/>
+                <rect x="112" y="96" width="52" height="10" rx="5"/>
+                <rect x="182" y="96" width="52" height="10" rx="5"/>
+              </g>
+              <ellipse cx="200" cy="206" rx="150" ry="20" fill="#ff6b9d" opacity=".12"/>
+              <circle cx="200" cy="140" r="26" fill="#ffb3cd" opacity=".85"/>
+              <circle cx="200" cy="140" r="42" fill="#ff6b9d" opacity=".18"/>
+              <g stroke="#ff6b9d" stroke-width="1" opacity=".35">
+                <line x1="60" y1="212" x2="140" y2="212"/><line x1="260" y1="212" x2="340" y2="212"/>
+                <line x1="100" y1="224" x2="180" y2="224"/><line x1="220" y1="224" x2="300" y2="224"/>
+              </g>
+            </svg>
+            <span class="tag">街头纪实</span>
+            <span class="dur">11:08</span>
+          </div>
+          <div class="body">
+            <h4>凌晨三点的最后一盏霓虹</h4>
+            <div class="meta">
+              <span class="author"><span class="avatar">阿</span>阿岚镜头</span>
+              <span class="views">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                9.3万
+              </span>
+            </div>
+          </div>
+        </article>
+
+        <article class="work reveal">
+          <div class="thumb">
+            <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
+              <defs><linearGradient id="w4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a1408"/><stop offset="1" stop-color="#3a2a0d"/></linearGradient></defs>
+              <rect width="400" height="250" fill="url(#w4)"/>
+              <circle cx="90" cy="70" r="26" fill="#e0a92a" opacity=".8"/>
+              <circle cx="90" cy="70" r="44" fill="#e0a92a" opacity=".16"/>
+              <g fill="#e0a92a" opacity=".55">
+                <rect x="150" y="120" width="5" height="5"/><rect x="180" y="140" width="5" height="5"/><rect x="220" y="110" width="5" height="5"/>
+                <rect x="260" y="150" width="5" height="5"/><rect x="300" y="126" width="5" height="5"/><rect x="340" y="160" width="5" height="5"/>
+              </g>
+              <path d="M0 200 L400 168 L400 250 L0 250 Z" fill="#150f05"/>
+              <path d="M0 214 L400 186" stroke="#e0a92a" stroke-width="2" opacity=".6"/>
+              <path d="M0 224 L400 200" stroke="#e0a92a" stroke-width="1.4" opacity=".35"/>
+            </svg>
+            <span class="tag">公路旅拍</span>
+            <span class="dur">05:46</span>
+          </div>
+          <div class="body">
+            <h4>沿着国道一直开，直到天亮</h4>
+            <div class="meta">
+              <span class="author"><span class="avatar">陆</span>陆上行舟</span>
+              <span class="views">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                7.8万
+              </span>
+            </div>
+          </div>
+        </article>
+
+        <article class="work reveal d1">
+          <div class="thumb">
+            <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
+              <defs><linearGradient id="w5" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0a1b2e"/><stop offset="1" stop-color="#124a6b"/></linearGradient></defs>
+              <rect width="400" height="250" fill="url(#w5)"/>
+              <g stroke="#4bb1ff" stroke-width="1.4" opacity=".5" fill="none">
+                <path d="M0 90 Q100 60 200 90 T400 90"/>
+                <path d="M0 130 Q100 100 200 130 T400 130"/>
+                <path d="M0 170 Q100 140 200 170 T400 170"/>
+              </g>
+              <rect x="150" y="70" width="100" height="150" fill="#07131f" opacity=".9"/>
+              <rect x="150" y="70" width="100" height="150" fill="#4bb1ff" opacity=".1"/>
+              <g fill="#8fd4ff" opacity=".8">
+                <rect x="164" y="90" width="12" height="8"/><rect x="188" y="110" width="12" height="8"/>
+                <rect x="212" y="90" width="12" height="8"/><rect x="176" y="140" width="12" height="8"/>
+                <rect x="210" y="166" width="12" height="8"/>
+              </g>
+              <circle cx="340" cy="50" r="20" fill="#bfe6ff" opacity=".5"/>
+            </svg>
+            <span class="tag">建筑光影</span>
+            <span class="dur">03:22</span>
+          </div>
+          <div class="body">
+            <h4>玻璃幕墙里的另一座城市</h4>
+            <div class="meta">
+              <span class="author"><span class="avatar">蓝</span>蓝色静止</span>
+              <span class="views">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                6.1万
+              </span>
+            </div>
+          </div>
+        </article>
+
+        <article class="work reveal d2">
+          <div class="thumb">
+            <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
+              <defs><linearGradient id="w6" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#170b2a"/><stop offset="1" stop-color="#42156b"/></linearGradient></defs>
+              <rect width="400" height="250" fill="url(#w6)"/>
+              <g fill="#b06bff" opacity=".6">
+                <circle cx="70" cy="60" r="2"/><circle cx="130" cy="40" r="1.4"/><circle cx="190" cy="70" r="1.8"/>
+                <circle cx="260" cy="36" r="1.4"/><circle cx="330" cy="66" r="2"/><circle cx="370" cy="34" r="1.2"/>
+              </g>
+              <path d="M0 190 Q100 140 200 190 T400 190 L400 250 L0 250 Z" fill="#1a0a2c"/>
+              <g stroke="#b06bff" stroke-width="1.2" opacity=".45">
+                <path d="M40 210 h60"/><path d="M140 220 h80"/><path d="M250 210 h70"/><path d="M330 226 h50"/>
+              </g>
+              <circle cx="200" cy="120" r="34" fill="#c79bff" opacity=".18"/>
+              <circle cx="200" cy="120" r="16" fill="#e3d2ff" opacity=".75"/>
+            </svg>
+            <span class="tag">实验短片</span>
+            <span class="dur">08:55</span>
+          </div>
+          <div class="body">
+            <h4>把整晚的梦剪成一分钟</h4>
+            <div class="meta">
+              <span class="author"><span class="avatar">沉</span>沉入深蓝</span>
+              <span class="views">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                5.4万
+              </span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="center-cta reveal">
+        <a class="btn btn-ghost" href="#join">进入完整放映厅 · 共 2,416 部作品</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 数据带 ============ -->
+  <section class="metrics">
+    <div class="wrap metrics-grid">
+      <div class="metric reveal"><b>12,800+</b><span>累计原创短片</span></div>
+      <div class="metric reveal d1"><b>460,000</b><span>月度观看人次</span></div>
+      <div class="metric reveal d2"><b>320</b><span>签约创作者</span></div>
+      <div class="metric reveal d3"><b>18</b><span>城市合作站点</span></div>
+    </div>
+  </section>
+
+  <!-- ============ 创作者 ============ -->
+  <section class="section" id="creators">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Creators</div>
+        <h2 class="title">夜色背后，是<em>一群不肯睡的人</em></h2>
+        <p class="sub">他们有的在天台等云散，有的在车里剪到天亮。夜色网把这些人聚在一起，让他们的名字被更多人记住。</p>
+      </div>
+
+      <div class="creators">
+
+        <article class="creator reveal">
+          <div class="big-avatar">林</div>
+          <h4>林间暗房</h4>
+          <div class="role">城市夜景 / 延时摄影</div>
+          <p>拍了七年城市天际线，最擅长在高楼之间找那条最安静的光。</p>
+          <div class="nums">
+            <div><b>86</b>作品</div>
+            <div><b>24.6万</b>关注</div>
+          </div>
+        </article>
+
+        <article class="creator reveal d1">
+          <div class="big-avatar">星</div>
+          <h4>星野慢速</h4>
+          <div class="role">星空 / 自然纪录</div>
+          <p>常年在高海拔地区拍摄，相机包里永远塞着一件厚羽绒服。</p>
+          <div class="nums">
+            <div><b>42</b>作品</div>
+            <div><b>18.2万</b>关注</div>
+          </div>
+        </article>
+
+        <article class="creator reveal d2">
+          <div class="big-avatar">阿</div>
+          <h4>阿岚镜头</h4>
+          <div class="role">街头纪实 / 人像</div>
+          <p>喜欢在凌晨拍路边摊，认为热气腾腾的画面最接近生活本身。</p>
+          <div class="nums">
+            <div><b>63</b>作品</div>
+            <div><b>15.9万</b>关注</div>
+          </div>
+        </article>
+
+        <article class="creator reveal d3">
+          <div class="big-avatar">蓝</div>
+          <h4>蓝色静止</h4>
+          <div class="role">建筑光影 / 实验影像</div>
+          <p>用长焦压缩空间，让玻璃幕墙与路灯在同一个平面里对话。</p>
+          <div class="nums">
+            <div><b>51</b>作品</div>
+            <div><b>12.4万</b>关注</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 品牌纪实 ============ -->
+  <section class="section" id="story" style="padding-top:16px">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Brand Story</div>
+        <h2 class="title">夜色网<em>走过的那些夜</em></h2>
+        <p class="sub">从一台二手相机和一间出租屋开始，我们花了好几年，才把"拍夜"这件事做成一个有名字的地方。</p>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="when">起点 · 2019</div>
+          <h4>三个人，一台相机，一条江</h4>
+          <p>最早的夜色网只是三个朋友之间的共享文件夹。他们每周固定一个夜晚出门拍摄，把素材存在同一块移动硬盘里，命名为"夜色"。</p>
+        </div>
+
+        <div class="tl-item reveal d1">
+          <div class="when">成形 · 2021</div>
+          <h4>第一届夜色影像展</h4>
+          <p>在一间旧仓库里，我们把 60 部短片投在水泥墙上，来了三百多人。那一晚之后，我们确定要把这件事正式做下去。</p>
+        </div>
+
+        <div class="tl-item reveal d2">
+          <div class="when">扩展 · 2023</div>
+          <h4>夜色工作站落地六座城市</h4>
+          <p>从成都到青岛，我们把闲置的夜间空间改造成创作者可以自由进出的剪辑室与放映厅，设备免费，只要带上你的素材。</p>
+        </div>
+
+        <div class="tl-item reveal d3">
+          <div class="when">现在 · 今天</div>
+          <h4>让每一帧夜色都有回响</h4>
+          <p>平台已经聚集了三百多位签约创作者。我们仍在寻找新的夜晚，新的光线，以及愿意一起熬到天亮的人。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 社区动态 ============ -->
+  <section class="section" id="community" style="padding-top:16px">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Community</div>
+        <h2 class="title">社区里，夜晚<em>从不会安静</em></h2>
+        <p class="sub">拍摄日志、器材交流、踩点情报与深夜闲聊。夜色网的社区氛围，是这座城市最好的凌晨陪伴。</p>
+      </div>
+
+      <div class="community">
+        <div class="posts">
+          <article class="post reveal">
+            <div class="post-head">
+              <span class="avatar">林</span>
+              <div class="who"><b>林间暗房</b><span>2 小时前 · 拍摄日志</span></div>
+            </div>
+            <p>今晚雾散得很晚，等到了 1 点 40 分才拍到干净的楼群轮廓。给想去拍的朋友一个提醒：江边风大，记得带防风罩，脚架一定要压重物。</p>
+            <div class="tags"><i>#城市夜景</i><i>#踩点情报</i><i>#延时摄影</i></div>
+          </article>
+
+          <article class="post reveal d1">
+            <div class="post-head">
+              <span class="avatar">星</span>
+              <div class="who"><b>星野慢速</b><span>昨天 · 器材交流</span></div>
+            </div>
+            <p>测试了三支不同焦段的星野镜头，最后发现还是老老实实用 14mm 最稳。别迷信参数，去现场站一晚上你就知道什么是好镜头。</p>
+            <div class="tags"><i>#星空银河</i><i>#镜头实测</i></div>
+          </article>
+
+          <article class="post reveal d2">
+            <div class="post-head">
+              <span class="avatar">阿</span>
+              <div class="who"><b>阿岚镜头</b><span>2 天前 · 作品分享</span></div>
+            </div>
+            <p>新片《凌晨三点的最后一盏霓虹》上线了。这部片子拍了四个晚上，剪了三个星期。感谢每一个愿意在镜头前停留的路人。</p>
+            <div class="tags"><i>#街头纪实</i><i>#新片上线</i><i>#凌晨街头</i></div>
+          </article>
+        </div>
+
+        <aside class="side-box reveal d2">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17l-6.1 3.4 1.5-6.8L2.2 9l6.9-.7z"/></svg>
+            本周夜色热榜
+          </h3>
+          <ul class="hot-list">
+            <li><span class="num">01</span><span>如何在城市里拍到没有人的空镜</span></li>
+            <li><span class="num">02</span><span>夜色网年度创作者的十件小事</span></li>
+            <li><span class="num">03</span><span>一组关于江面反光的调色预设分享</span></li>
+            <li><span class="num">04</span><span>凌晨四点的写字楼拍摄注意事项</span></li>
+            <li><span class="num">05</span><span>新手夜景航拍最容易犯的六个错误</span></li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 订阅 / 加入 ============ -->
+  <section class="section" id="join" style="padding-top:20px">
+    <div class="wrap">
+      <div class="subscribe reveal">
+        <div class="subscribe-inner">
+          <div>
+            <h2>订阅夜色网周报<br>每周一封，只在深夜发出</h2>
+            <p>精选本周最值得看的五部夜色短片、一条踩点情报、一个调色技巧。没有广告，只有夜晚。</p>
+            <form class="sub-form" id="subForm" novalidate>
+              <input type="email" id="emailInput" placeholder="输入你的邮箱" aria-label="输入你的邮箱" autocomplete="email">
+              <button class="btn btn-primary" type="submit">免费订阅</button>
+            </form>
+            <div class="sub-note" id="subNote">我们尊重你的隐私，随时可以退订。</div>
+          </div>
+          <div class="sub-visual" aria-hidden="true">
+            <svg viewBox="0 0 320 240" fill="none">
+              <defs>
+                <linearGradient id="env" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#7c5cff"/>
+                  <stop offset="1" stop-color="#3a2a9e"/>
+                </linearGradient>
+                <linearGradient id="flap" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#b9a9ff"/>
+                  <stop offset="1" stop-color="#7c5cff"/>
+                </linearGradient>
+              </defs>
+              <circle cx="160" cy="120" r="104" stroke="rgba(124,92,255,.35)" stroke-width="1"/>
+              <circle cx="160" cy="120" r="74" stroke="rgba(35,213,171,.22)" stroke-width="1"/>
+              <rect x="56" y="76" width="208" height="132" rx="12" fill="url(#env)" opacity=".92"/>
+              <path d="M56 88 L160 156 L264 88" stroke="url(#flap)" stroke-width="3" stroke-linecap="round" fill="none"/>
+              <path d="M56 88 L160 156 L264 88 L264 208 L56 208 Z" fill="#0a0b12" opacity=".25"/>
+              <circle cx="258" cy="66" r="10" fill="#23d5ab" opacity=".9"/>
+              <circle cx="258" cy="66" r="18" fill="#23d5ab" opacity=".18"/>
+              <g fill="#e8eaf2" opacity=".8">
+                <circle cx="44" cy="42" r="1.4"/><circle cx="90" cy="24" r="1.1"/><circle cx="280" cy="120" r="1.3"/>
+                <circle cx="34" cy="150" r="1.1"/><circle cx="292" cy="34" r="1.2"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ 页脚 ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="#top">
+          <span class="logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 15.5A8.5 8.5 0 0 1 8.5 4a8.5 8.5 0 1 0 11.5 11.5z"/>
+              <circle cx="16.5" cy="7.5" r=".8" fill="#fff" stroke="none"/>
+            </svg>
+          </span>
+          <span>夜色网<small>NIGHTFRAME</small></span>
+        </a>
+        <p>专注夜间影像的视频品牌与创作社区。记录光落下的地方，也记录还在醒着的人。</p>
+        <div class="socials">
+          <a href="#top" aria-label="微博">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10.5 19c-4 0-7-2.2-7-5 0-1.4.9-3 2.4-4.4C7.8 8 9.6 7.4 10.7 7.7c.5.2.6.6.4 1.2-.2.6-.6 1.4-.6 1.4s1.2-.9 2.3-1.2c.9-.2 1.4.3 1.3 1.1 0 .5-.2 1-.2 1s.9-.3 1.4.1c.4.3.3.9 0 1.5 1.1.4 1.9 1.4 1.9 2.5 0 2.1-2.9 3.7-6.7 3.7zm-.2-6.9c-1.6.2-2.8 1.2-2.7 2.4.1 1.1 1.5 1.9 3.1 1.8 1.6-.2 2.8-1.2 2.7-2.4-.1-1.1-1.5-1.9-3.1-1.8z"/><circle cx="16.5" cy="6.5" r="3.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+          </a>
+          <a href="#top" aria-label="视频平台">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#top" aria-label="小红书">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5-3 4-3 4 3 4 3"/><circle cx="9" cy="9.5" r=".9" fill="currentColor" stroke="none"/><circle cx="15" cy="9.5" r=".9" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#top" aria-label="邮箱">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 7l10 7L22 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="foot-col">
+        <h5>内容</h5>
+        <ul>
+          <li><a href="#works">精选作品</a></li>
+          <li><a href="#works">放映厅</a></li>
+          <li><a href="#creators">创作者名录</a></li>
+          <li><a href="#community">夜色热榜</a></li>
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h5>合作</h5>
+        <ul>
+          <li><a href="#about">品牌短片</a></li>
+          <li><a href="#about">城市文旅合作</a></li>
+          <li><a href="#about">设备与场地方</a></li>
+          <li><a href="#join">媒体联络</a></li>
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h5>关于</h5>
+        <ul>
+          <li><a href="#story">品牌纪实</a></li>
+          <li><a href="#about">夜色工作站</a></li>
+          <li><a href="#join">加入我们</a></li>
+          <li><a href="#top">使用条款</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <span>© 2024 夜色网 Nightframe · 记录光落下的地方</span>
+      <div class="links">
+        <a href="#top">隐私政策</a>
+        <a href="#top">内容规范</a>
+        <a href="#top">创作者协议</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="返回顶部">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- 移动端菜单 ---------- */
+var navLinks = document.getElementById('navLinks');
+var menuToggle = document.getElementById('menuToggle');
+if(menuToggle){
+  menuToggle.addEventListener('click', function(){
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ navLinks.classList.remove('open'); });
+  });
+}
+
+/* ---------- 滚动显现 ---------- */
+var reveals = document.querySelectorAll('.reveal');
+if('IntersectionObserver' in window){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        en.target.classList.add('in');
+        io.unobserve(en.target);
+      }
+    });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  reveals.forEach(function(el){ io.observe(el); });
+}else{
+  reveals.forEach(function(el){ el.classList.add('in'); });
+}
+
+/* ---------- 返回顶部 ---------- */
+var toTop = document.getElementById('toTop');
+window.addEventListener('scroll', function(){
+  if(window.scrollY > 600){ toTop.classList.add('show'); }
+  else{ toTop.classList.remove('show'); }
+}, {passive:true});
+toTop.addEventListener('click', function(){
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+
+/* ---------- Hero 播放器伪交互 ---------- */
+var playBtn = document.getElementById('playBtn');
+var progressBar = document.getElementById('progressBar');
+var timecode = document.getElementById('timecode');
+var playing = false;
+var pct = 34;
+var timer = null;
+var totalSec = 270;
+
+function fmt(sec){
+  var m = Math.floor(sec/60);
+  var s = Math.floor(sec%60);
+  return (m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+}
+
+function updatePlayer(){
+  progressBar.style.width = pct + '%';
+  var cur = Math.round(totalSec * pct / 100);
+  timecode.textContent = fmt(cur) + ' / ' + fmt(totalSec);
+}
+
+playBtn.addEventListener('click', function(){
+  playing = !playing;
+  if(playing){
+    playBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="#fff"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
+    playBtn.setAttribute('aria-label','暂停预告片');
+    timer = setInterval(function(){
+      pct += 0.35;
+      if(pct >= 100){ pct = 100; clearInterval(timer); playing = false;
+        playBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>';
+        playBtn.setAttribute('aria-label','重新播放预告片');
+      }
+      updatePlayer();
+    }, 90);
+  }else{
+    clearInterval(timer);
+    playBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>';
+    playBtn.setAttribute('aria-label','播放预告片');
+  }
+});
+updatePlayer();
+
+/* ---------- 订阅表单 ---------- */
+var subForm = document.getElementById('subForm');
+var emailInput = document.getElementById('emailInput');
+var subNote = document.getElementById('subNote');
+subForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  var v = emailInput.value.trim();
+  var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  if(!ok){
+    subNote.textContent = '邮箱格式看起来不太对，再检查一下？';
+    subNote.style.color = '#ff6b9d';
+    emailInput.focus();
+    return;
+  }
+  subNote.textContent = '订阅成功，本周的夜色周报将在周四深夜送达。';
+  subNote.style.color = '#23d5ab';
+  emailInput.value = '';
+  emailInput.blur();
+});
+
+/* ---------- 平滑锚点（兼容旧浏览器） ---------- */
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click', function(e){
+    var id = a.getAttribute('href');
+    if(id.length > 1){
+      var target = document.querySelector(id);
+      if(target){
+        e.preventDefault();
+        var y = target.getBoundingClientRect().top + window.scrollY - 78;
+        window.scrollTo({top:y, behavior:'smooth'});
+      }
+    }
+  });
+});
+
+/* ---------- 滚动条带复制内容，保证无缝循环 ---------- */
+var track = document.getElementById('marqueeTrack');
+if(track){
+  track.innerHTML = track.innerHTML + track.innerHTML;
+}
+
+})();
+</script>
+</body>
+                      </html>
